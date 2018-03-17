@@ -1,0 +1,88 @@
+二叉树相关总结：
+
+1.遍历二叉树：将二叉树中的结点按照一定的规律线性化。
+2.目的：非线性化结构变成线性化结构
+3.分类：按照遍历的先后顺序分为：先序，中序，后序。
+       按照遍历的方式可以分为：递归遍历和非递归遍历。
+4.伪代码演示：
+      4-1.先序递归遍历：
+            void preOrder(BiTree root) {
+                if(NULL != root) {
+                    Visit(root.data);//访问根节点的数据
+                    preOrder(root.LChild); //递归遍历左子树
+                    preOrder(root.RChild); //递归遍历右子树
+                }
+            }
+      注：先序，后序，中序只是因为Visit语句的位置而决定，但都是递归操作。
+      时间复杂度：n个结点 + n+1个空结点；复杂度为O(n);
+      空间复杂度：深度K乘每个结点所需空间数；还有系统的运行栈。
+      
+      4-2.中序遍历非递归：栈操作。
+          思想：结点存在或者栈不空的条件下，压栈并遍历左子树，如果结点为空，那就遍历右子树。
+            void inOrder(BiTree root) {
+                Inint Stack(&S);
+                p = root;
+                while(NULL != P || !IsEmpty(S)) { //遍历条件
+                    if(NULL != p) {   //进栈,遍历左子树
+                        Push(&S, p);
+                        p = p.LChild;
+                    } else {   //根指针退栈,访问根结点，遍历右子树。
+                        Pop(&S, &p);  //退栈
+                        Visit(p.data); //访问根结点
+                        p = p.RChild; //遍历右子树
+                    }
+                }
+            }
+            
+       4-3：后序的非递归：LRD。
+          思想：如何判断当前栈顶结点的左右子树都已经访问：判断刚访问过的结点是否是当前栈顶结点的右孩子。
+          //记录刚刚访问的的结点，以便于在遍历中利用前驱q与当前结点p的关系做判别。
+            void postOrder(BiTree root) {
+              BiTNode *P, *q;
+              q = NULL;
+              p = root;
+              InitStack(&S);
+              while(NULL != P || !IsEmpty(S)) { 
+                //开始遍历左子树
+                  Push();
+                  p = p.LChild;
+                  if(!IsEmpty(S)) { //判断是否为Null
+                      GetTop(&S, &p); //拿到栈顶
+                      if(NULL != p.RChild  || p.RChild = q) { //判断右孩子，是否已经遍历
+                          visit(p.data); //访问根结点
+                          q = p;  //q作为下一个已处理的结点前驱
+                          Pop(&S, &p);
+                          p = NULL;
+                      } else {
+                          p = p.RChild;
+                      }
+                  }
+              }
+            }
+            
+       4-4：层次遍历二叉树：非递归
+          思想：设置队列Q，暂存某层已经被访问过的结点，同时也保存这一层结点访问的先后顺序。然后根据这层访问的先后顺序实现对下层孩子结点的按次序访问。
+                根结点入队列，判断是否为NULL;队头出队并且访问，左右孩子不NULL时候进队列。
+              int LayerOrder(BiTree bt) {
+                  //初始化
+                  SeqQueue Q; 
+                  BiTree p;
+                  InitQueue(&Q);
+                  if(NULL == bt) { //判断二叉树是否为NULL；
+                      return ERROR;
+                  }
+                  EnterQueue(&Q, bt); //根结点入队，开始层次遍历
+                  while( !IsEmpty(Q)) { //队列不空，遍历未结束
+                      DeleteQueue(&Q, &P); // 队头元素出队并且访问
+                      visit(p.data); //访问结点
+                      if(NULL != p.LChild) {  //左孩子不空进队
+                          EnterQueue(&Q, p.LChild);
+                      }
+                      
+                      if(NULL != p.RChild) {
+                          EnterQueue(&Q, p.RChild);
+                      }
+                  }
+                  return OK;
+              }
+            
