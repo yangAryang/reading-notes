@@ -5,6 +5,9 @@ I want to put the professional books I have read and my understanding in this wa
 chinese:将读书笔记放在这个仓库中去。以便于日后查缺补漏。</br>
 
 
+欢迎补充,以便巩固我的学习;
+
+
 github:<a href ="https://github.com/chenmudu">陈木嘟</a></br>
 
 
