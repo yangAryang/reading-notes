@@ -21,7 +21,7 @@
   
   另一种说法是分为：堆（Heap），栈（Stacks），数据段（data segment），代码段（code segment）。是从操作系统上的进程的角度去看的。
   
-  具体的还是得R大来说，<a href="https://www.zhihu.com/question/33186690/answer/56347931">JAVA 的内存是如何划分的？</a></br>
+  具体的可移步知乎查看R大的说法。
   
   GC初步:
     引用计数算法:判断引用计数器的值是否为0来判断对象是否存货,Python中的判断算法就是这种.
