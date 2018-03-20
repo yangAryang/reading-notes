@@ -4,8 +4,10 @@ I want to put the professional books I have read and my understanding in this wa
 
 chinese:将读书笔记放在这个仓库中去。以便于日后查缺补漏。</br>
 
+具体的分类在<a href="https://github.com/chenmudu/reading-notes/tree/master/Classification">Classification</a>下。</br>
 
-欢迎补充,以便巩固我的学习;
+
+欢迎补充,以便巩固我的学习;</br>
 
 
 github:<a href ="https://github.com/chenmudu">陈木嘟</a></br>
