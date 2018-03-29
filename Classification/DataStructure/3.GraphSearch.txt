@@ -1,0 +1,51 @@
+1.深度优先搜素:类似于树得先根遍历。按照深度方向搜素。
+    递归算法思想：先访问出发点v0,依次以v0得未被访问的邻接点为出发点,深度优先搜素,直到所有与v0有路径相通的顶点都被访问。如果是非连通图,则换未被访问结点继续重复。
+    
+    递归算法实现:
+    void TraverseGraph(Graph g) { //深度优先遍历图g
+      for(vi = 0; vi < g.vexnum; vi++) {
+        visited[vi] = false; //循环创发点结点所在的深度图然后进行初始化。将结点的标记位改为未访问。
+      }
+      
+      for(vi = 0; vi < g.vexnum; vi++) {
+        if(! visited[vi]) { //循环遍历每个结点判断标志位。
+          DepthFirstSearch(g, vi); //深度优先遍历vi所在的连通子图。
+        }
+      }
+    }
+    
+    void DepthFirstSerach(Graph g, int v0) {//深度优先遍历某结点所在的连通子图。
+      visit(vo); 
+      visit[v0] = true; //访问顶点并设置标志位。
+      w = FirstAdjVertex(g, v0); //拿到邻接点
+      while(-1 != w) { //邻接点存在
+        if(! visited[w]) {  
+          DepthFirstSearch(g,w); //递归的调用深度优先遍历所在连通子图。
+        }
+        w = nextAdjVertex(g, v0, w); //寻找下一个邻接点
+      }
+    }
+    
+    非递归算法思想:将v0入栈;栈不空:栈顶顶点出栈,如果未访问,访问并设置标志,然后将该结点所有未访问的邻接点入栈
+    非递归算法:采用栈
+    void DepthFirstSerach(Graph g, int v0) {
+      InitStack(&S);  //初始化栈
+      Push(&S, v0);   //入栈
+      while(! Empty(S)) { //栈不为空
+        Pop(&S, v0); //出栈
+        if(! visit[v]) {  //防止栈中出现重复顶点
+          visit[v];
+          visit[v] = true; //访问并设置判断位
+          w = FirstAdjVertex(g, v); //得到第一个邻接点
+          while(w != -1) { 
+            if(! visited[w]) { //未访问
+              Push(&S, v0); //入栈
+            }
+            //求v相对于w的下一个邻接点。
+            w = NextAdjVertex(g, v, w);
+          }
+        }
+      }
+    }
+    
+2. 广度优先搜素：按照广度方向搜素,类似于树的层次遍历。   
