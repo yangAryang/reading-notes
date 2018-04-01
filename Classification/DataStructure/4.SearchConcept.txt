@@ -1,0 +1,36 @@
+1.查找基本概念：
+  查找：根据所给的关键字在特定列表中进行对比匹配然后返回该元素在这个列表中的位置。
+  分类:1>.比较式查找：基于线性表的查找 + 基于树的查找
+       2>.计算式查找：又称Hash查找。
+ 
+2.基于线性表的查找。
+
+  顺序查找：基于监视哨 + 循环对比。
+  int SeqSerach(List lst, KeyType k) {
+    lst.r[0].key = k;
+    i = lst.length;
+    while(lst.r[i].key != k) {
+      i--;
+    }
+    return i;
+  }
+  
+  
+  折半查找:二分查找。
+  int BinSerach(list lst, KeyType k) {
+    low = 1; high = lst.length;  //设置区间
+    while(low <= high) {
+      mid = (low + high)/2;
+      if(lst.r[mid].key == key) {
+        return mid;
+      } else if(k < lst.r[mid].key) {  //关键字在左半部,右边界减少1
+        high = mid - 1;
+      } else { 
+        low = mid + 1;
+      }
+    }
+    return 0;
+  }
+  
+  分块查找:列表分成子表,构造索引表。块内无序,块间有序。
+  查找:块外用二分查找，块内用顺序查找。
