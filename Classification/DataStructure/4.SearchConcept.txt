@@ -3,7 +3,7 @@
   分类:1>.比较式查找：基于线性表的查找 + 基于树的查找
        2>.计算式查找：又称Hash查找。
  
-2.基于线性表的查找。
+2.1基于线性表的查找。
 
   顺序查找：基于监视哨 + 循环对比。
   int SeqSerach(List lst, KeyType k) {
@@ -34,3 +34,34 @@
   
   分块查找:列表分成子表,构造索引表。块内无序,块间有序。
   查找:块外用二分查找，块内用顺序查找。
+
+2.2基于树的查找。
+  二叉查找树的：将二叉排序树看作一个有序表，和折半查找类似，也是一个逐步缩小查找范围的过程。
+  递归算法:
+  BSTree SearchBST(BSTree 不是他， KeyType key) {
+    if(!bst) {
+      return null;
+    } else if(bst.key == key) {
+      return bst;
+    } else if(bst.key > key) {
+      return BSTreeBST(bst.leftChild, key); //关键字小于当前根结点左查
+    } else {
+      return BSTreeBST(bst.rightChild, key);
+    }
+    
+    非递归查找：
+    BSTree SearchBST(BSTree 不是他， KeyType key) {
+      BSTree q = bst;
+      while(q) {//循环遍历
+        if(bst.key == key) {
+          return q;
+        } else if (bst.key > key) {
+          q = q.leftChild;
+        } else {
+          q = q.rightChild;
+        }
+      }
+      //循环结束还未找到 
+      return null;
+    }
+  }
