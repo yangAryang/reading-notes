@@ -20,7 +20,7 @@
   int BinSerach(list lst, KeyType k) { 
     low = 1; high = lst.length;  //设置区间 
     while(low <= high) { 
-      mid = (low + high)/2; 
+      mid = (low + high) >>> 1; 
       if(lst.r[mid].key == key) { 
         return mid; 
       } else if(k < lst.r[mid].key) {  //关键字在左半部,右边界减少1 
