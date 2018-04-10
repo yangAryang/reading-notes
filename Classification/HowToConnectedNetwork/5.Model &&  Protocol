@@ -1,0 +1,40 @@
+# 1.OSI七层协议和TCP/IP四层协议
+## 1.1 OSI七层模型的分类：
+![image](http://www.freesoft.org/CIE/Topics/model.gif)
+</br>
+模型优点：</br>
+1. 将服务，接口和协议三个概念分开。
+2. 不同功能模块的不同层次分担起不同的职责
+3. 减轻问题的复杂程度，一旦网络发生故障，可迅速定位故障所处层次，便于查找和纠错；
+4. 各层分别定义标准接口，使具备相同对等层的不同网络设备能实现互操作，各层之间则相对独立，一种高层协议可放在多种低层协议上运行；
+5. 能有效刺激网络技术革新，因为每次更新都可以在小范围内进行，不需对整个网络动大手术；
+6. 便于研究和教学。
+
+## 1.2 七层介绍
+1. 应用层（Application Layer）提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3 等。
+2. 表示层（Presentation Layer）把数据转换为能与接收者的系统格式兼容并适合传输的格式。
+3. 会话层（Session Layer）负责在数据传输中设置和维护电脑网络中两台电脑之间的通信连接。
+4. 传输层（Transport Layer）把传输表头（TH）加至数据以形成数据包。传输表头包含了所使用的协议等发送信息。例如: 传输控制协议（TCP）等。
+5. 网络层（Network Layer）决定数据的路径选择和转寄，将网络表头（NH）加至数据包，以形成分组。网络表头包含了网络数据。例如: 互联网协议（IP）等
+6. 数据链路层（Data Link Layer）负责网络寻址、错误侦测和改错。
+7. 物理层（Physical Layer）在局部局域网上传送数据框（frame），它负责管理电脑通信设备和网络媒体之间的互通。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机适配器等。
+
+## 1.3 四层模型分类
+![image](https://upload-images.jianshu.io/upload_images/53611-6372b2b829bf2820.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/659)
+
+1.  主机到网络层　</br>　
+　　实际上TCP/IP参考模型没有真正描述这一层的实现，只是要求能够提供给其上层-网络互连层一个访问接口，以便在其上传递IP分组。
+2. 网络互连层　　</br>
+　　网络互连层是整个TCP/IP协议栈的核心。它的功能是把分组发往目标网络或主机。</br>
+网络互连层定义了分组格式和协议，即IP协议（Internet Protocol）。　　</br>
+　　网络互连层除了需要完成路由的功能外，也可以完成将不同类型的网络（异构网）互连的任务。除此之外，网络互连层还需要完成拥塞控制的功能。
+3. 传输层　　</br>
+　　在TCP/IP模型中，传输层的功能是使源端主机和目标端主机上的对等实体可以进行会话。在传输层定义了两种服务质量不同的协议。即：传输控制协议TCP（transmission control protocol）和用户数据报协议UDP（user datagram protocol）。
+4. 应用层　</br>　
+　　TCP/IP模型将OSI参考模型中的会话层和表示层的功能合并到应用层实现。　　</br>
+　　应用层面向不同的网络应用引入了不同的应用层协议。其中，有基于TCP协议的，如文件传输协议（File Transfer Protocol，FTP）、虚拟终端协议（TELNET）、超文本链接协议（Hyper Text Transfer Protocol，HTTP），也有基于UDP协议的。
+
+# TCP与UDP的区别
+![image](https://upload-images.jianshu.io/upload_images/6597489-e3f77150c6ecd3e7?imageMogr2/auto-orient/strip%7CimageView2/2/w/640)
+
+
