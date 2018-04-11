@@ -1,0 +1,102 @@
+### 一. 二者对比
+1. 顺序插入来说：ArrayList较快,数组事先new出来的,只需要把数据放入指定位置;LinkedList则不一样,new出来而且还要改变引用。
+2. Node结点中不仅仅包含数据仍包含Entry,如果LinkedList中的Node较多,维护起来更加耗费内存。
+3. 遍历：各自使用最优的遍历方式,ArrayList效率较高。
+4. 插入和删除:传说中的LinkedList比ArrayList快是不准确的,
+- LinkedList插入和删除,慢再寻址,快在只需要改变引用;
+- ArrayList插入和删除,慢在数组元素的批量cp,而快在寻址.
+5. 所以看位置,如果在前半段LinkedList快，后半段ArrayList快。如果不确定,用LinkedList,原因：
+- LinkedList整体插入删除比较稳定,不像ArrayList那样到后半段变快。
+- ArrayList插入的不好便要扩容,扩容是一件浪费时间和空间的事情。
+
+
+
+代码证明：
+```
+package com.chen.test;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Test {
+	//指定集合大小
+	private static int SIZE = 111111;
+    
+    private static void loopList(List<Integer> list)
+    {	
+    	//开始时间
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < list.size(); i++)
+        {
+            list.get(i);
+        }									//底层类的简称
+        System.out.println(list.getClass().getSimpleName() + "使用普通for循环遍历时间为" + 
+                (System.currentTimeMillis() - startTime) + "ms");
+         
+        startTime = System.currentTimeMillis();
+        for (Integer i : list)
+        {
+             //foreach会默认使用iterator。
+        }
+        System.out.println(list.getClass().getSimpleName() + "使用foreach循环遍历时间为" + 
+                (System.currentTimeMillis() - startTime) + "ms");
+    }
+     
+    public static void main(String[] args)
+    {
+        List<Integer> arrayList = new ArrayList<Integer>(SIZE);
+        List<Integer> linkedList = new LinkedList<Integer>();
+         
+        for (int i = 0; i < SIZE; i++)
+        {
+            arrayList.add(i);
+            linkedList.add(i);
+        }
+         
+        loopList(arrayList);
+        loopList(linkedList);
+        System.out.println();
+        /**第一次：
+         *  ArrayList使用普通for循环遍历时间为10ms
+			ArrayList使用foreach循环遍历时间为8ms
+			LinkedList使用普通for循环遍历时间为9924ms
+			LinkedList使用foreach循环遍历时间为7ms
+         */
+        /**第二次：
+         *  ArrayList使用普通for循环遍历时间为6ms
+			ArrayList使用foreach循环遍历时间为6ms
+			LinkedList使用普通for循环遍历时间为9164ms
+			LinkedList使用foreach循环遍历时间为9ms
+         */
+        /**第三次：
+         *  ArrayList使用普通for循环遍历时间为6ms
+			ArrayList使用foreach循环遍历时间为6ms
+			LinkedList使用普通for循环遍历时间为8962ms
+			LinkedList使用foreach循环遍历时间为8ms
+
+         */
+    }
+}
+```
+
+总结：LinkedList使用普通for循环超级慢,原因在于未实现RandomAccess。关于RandomAccess接口的介绍。
+
+
+### 二.RandomAccess接口介绍：
+
+public interface RandomAccessList
+ 实现所使用的标记接口，用来表明其支持快速（通常是固定时间）随机访问。此接口的主要目的是允许一般的算法更改其行为，从而在将其应用到随机或连续访问列表时能提供良好的性能。 
+
+将操作随机访问列表的最佳算法（如 ArrayList）应用到连续访问列表（如 LinkedList）时，可产生二次项的行为。如果将某个算法应用到连续访问列表，那么在应用可能提供较差性能的算法前，鼓励使用一般的列表算法检查给定列表是否为此接口的一个 instanceof，如果需要保证可接受的性能，还可以更改其行为。 
+
+现在已经认识到，随机和连续访问之间的区别通常是模糊的。例如，如果列表很大时，某些 List 实现提供渐进的线性访问时间，但实际上是固定的访问时间。这样的 List 实现通常应该实现此接口。实际经验证明，如果是下列情况，则 List 实现应该实现此接口，即对于典型的类实例而言，此循环： 
+```
+     for (int i=0, n=list.size(); i < n; i++)
+         list.get(i);
+ 的运行速度要快于以下循环： 
+     for (Iterator i=list.iterator(); i.hasNext(); )
+         i.next();
+
+```
+所以这就解释了为什么使用普通for循环遍历LinkedList这么慢的原因。
